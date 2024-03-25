@@ -8,9 +8,9 @@ COPY php.ini /etc/php/8.2/apache2/php.ini
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN rm -rf /var/www/html/*
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
-RUN composer create-project flarum/flarum /var/www/html
-RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 755 /var/www/html
+RUN composer create-project flarum/flarum /flarum
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 VOLUME [ "/var/www/html" ]
 EXPOSE 80
 CMD ["apache2ctl", "-D", "FOREGROUND"]
