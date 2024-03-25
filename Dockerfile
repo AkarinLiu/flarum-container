@@ -8,7 +8,7 @@ COPY php.ini /etc/php/8.2/apache2/php.ini
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 COPY init.sh /init.sh
-ENTRYPOINT if [ -f /.installed ]; then exec /init.sh; else touch /.installed && exec /init.sh; fi
+ENTRYPOINT if [ -f /.installed ]; then exec /init.sh && touch .installed; fi
 RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 755 /var/www/html
 VOLUME [ "/var/www/html" ]
