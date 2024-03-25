@@ -7,8 +7,7 @@ RUN a2enmod rewrite
 COPY php.ini /etc/php/8.2/apache2/php.ini
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
-VOLUME [ "/var/www/html" ]
-EXPOSE 80
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
+RUN composer create-project flarum/flarum /flarum
+COPY init.sh /init.sh
+CMD [ "/init.sh" ]
+
