@@ -1,4 +1,5 @@
 FROM debian
+LABEL org.opencontainers.image.source=https://github.com/AkarinLiu/flarum-container
 WORKDIR /var/www/html
 RUN apt-get update && apt-get install -y apache2 libapache2-mod-php php-common php-mysql php-mbstring php-xml php-curl php-exif php-gd php-intl php-soap php-zip composer
 RUN phpenmod fileinfo exif pdo_mysql mbstring xml curl gd intl soap zip
