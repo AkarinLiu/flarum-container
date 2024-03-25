@@ -6,7 +6,6 @@ RUN phpenmod fileinfo exif pdo_mysql mbstring xml curl gd intl soap zip
 RUN a2enmod rewrite
 COPY php.ini /etc/php/8.2/apache2/php.ini
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
-RUN rm -rf /var/www/html/*
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
