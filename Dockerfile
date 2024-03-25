@@ -7,16 +7,8 @@ RUN a2enmod rewrite
 COPY php.ini /etc/php/8.2/apache2/php.ini
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
-ENTRYPOINT if [ -f /var/www/html/site.php ]; then \
-    echo 'skipping...'; \
-else \
-    echo 'Downloading Flarum...'; \
-    rm -rf /var/www/html/* ; \
-    composer create-project flarum/flarum /var/www/html ; \
-    chown -R www-data:www-data /var/www/html/ ; \
-    chmod -R 755 /var/www/html/ ; \
-    echo 'Flarum installed.' \
-fi
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 VOLUME [ "/var/www/html" ]
 EXPOSE 80
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
