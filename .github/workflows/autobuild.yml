@@ -20,7 +20,7 @@ jobs:
     - name: Install Podman
       run: sudo apt-get update && sudo apt-get install -y podman
     - name: Build Image
-      run: podman build -t ghcr.io/akarinliu/flarum:latest .
+      run: podman build -t ghcr.io/akarinliu/flarum:latest . --no-cache
     - name: Login GitHub Account
       run: podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GH_TOKEN }}
     - name: Push Image
