@@ -17,13 +17,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
+    - name: Install Podman
+      run: sudo apt-get update && sudo apt-get install -y podman
     - name: Build Image
-      uses: podman/build-push-action@v2.1.0
-      with:
-        context: .
-        file: ./Dockerfile
-        tags: |
-          ghcr.io/akarinliu/flarum:latest
-        push: true
-        push_secret: ${{ secrets.GITHUB_TOKEN }}
+      run: podman build -t ghcr.io/akarinliu/flarum:latest .
+    - name: Login GitHub Account
+      run: podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GH_TOKEN }}
+    - name: Push Image
+      run: podman push ghcr.io/akarinliu/flarum:latest
