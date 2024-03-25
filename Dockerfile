@@ -7,7 +7,5 @@ RUN a2enmod rewrite
 COPY php.ini /etc/php/8.2/apache2/php.ini
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
-RUN composer create-project flarum/flarum /flarum
-COPY init.sh /init.sh
-CMD [ "/init.sh" ]
-
+ENTRYPOINT if [ ! -e /var/www/html/site.php ]; then composer create-project flarum/flarum /var/www/html ; fi && chown -R www-data:www-data /var/www/html/ && chmod -R 755 /var/www/html/ && apache2 -D FOREGROUND
+EXPOSE 80
