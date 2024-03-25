@@ -1,5 +1,5 @@
-# Flarum OCI
-Flarum 非官方 OCI 镜像，使用 Podman 构建。
+# Flarum Container
+Flarum 非官方容器镜像，使用 Podman 构建。
 
 ## 目标
 在Docker或Podman中运行Flarum，并且使用Compose一键安装，易于维护。
