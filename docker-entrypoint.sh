@@ -6,4 +6,4 @@ if [ ! -e "/var/www/html/site.php" ]; then
     chmod -R 755 /var/www/html
 fi
 echo "Starting Flarum..."
-apache2ctl -D FOREGROUND
+httpd -D FOREGROUND
