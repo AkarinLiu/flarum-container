@@ -3,10 +3,10 @@ name: Build Image
 on:
   push:
     branches:
-      - main
+      - alpine
   pull_request:
     branches:
-      - main
+      - alpine
   schedule:
     - cron: '0 0 * * *'
 
@@ -20,8 +20,8 @@ jobs:
     - name: Install Podman
       run: sudo apt-get update && sudo apt-get install -y podman
     - name: Build Image
-      run: podman build -t ghcr.io/akarinliu/flarum:latest . --no-cache
+      run: podman build -t ghcr.io/akarinliu/flarum:alpine . --no-cache
     - name: Login GitHub Account
       run: podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GH_TOKEN }}
     - name: Push Image
-      run: podman push ghcr.io/akarinliu/flarum:latest
+      run: podman push ghcr.io/akarinliu/flarum:alpine

@@ -1,11 +1,9 @@
-FROM debian
+FROM alpine
 LABEL org.opencontainers.image.source=https://github.com/AkarinLiu/flarum-container
 WORKDIR /var/www/html
-RUN apt-get update && apt-get install -y apache2 libapache2-mod-php php-common php-mysql php-mbstring php-xml php-curl php-exif php-gd php-intl php-soap php-zip composer
-RUN phpenmod fileinfo exif pdo_mysql mbstring xml curl gd intl soap zip
-RUN a2enmod rewrite
-COPY php.ini /etc/php/8.2/apache2/php.ini
-COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
+RUN apk update && apk add apache2 php-apache2 php-common php-mbstring php-pdo_mysql php-fileinfo php-exif php-zip php-openssl php-gd php-soap php-curl php-intl php-opcache php-tokenizer php-json php-dom composer
+COPY php.ini /etc/php82/php.ini
+COPY httpd.conf /etc/apache2/httpd.conf
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
