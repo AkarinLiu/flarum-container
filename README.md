@@ -12,6 +12,11 @@ services:
     runtime:
         image: ghcr.io/akarinliu/flarum:latest
         restart: always
+        environmnet:
+        - FLARUM_DB_HOST=mysql
+        - FLARUM_DB_NAME=flarum
+        - FLARUM_DB_USER=flarum
+        - FLARUM_DB_PASSWORD=flarum
         volumes:
         - ./data:/var/www/html
         ports:

@@ -9,4 +9,11 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 RUN composer create-project flarum/flarum /flarum
 EXPOSE 80
+COPY config.php /config.php
+ENV FLARUM_DB_HOST=mysql
+ENV FLARUM_DB_DATABASE=flarum
+ENV FLARUM_DB_USERNAME=flarum
+ENV FLARUM_DB_PASSWORD=flarum
+ENV FLARUM_DB_PREFIX=flarum_
+ENV FLARUM_URL=http://localhost
 ENTRYPOINT bash /docker-entrypoint.sh
