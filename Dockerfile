@@ -10,5 +10,11 @@ RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/compos
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 RUN composer create-project flarum/flarum /flarum
+COPY config.php /config.php
+ENV FLARUM_DB_HOST=mysql
+ENV FLARUM_DB_DATABASE=flarum
+ENV FLARUM_DB_USERNAME=root
+ENV FLARUM_DB_PASSWORD=root
+ENV FLARUM_DB_PREFIX=flarum_
 EXPOSE 80
 ENTRYPOINT bash /docker-entrypoint.sh
